@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerPlayer.Players
 {
-    class Player
+    public class Player
     {
+        public Guid PlayerId { get; set; }
+
+        public int ChipCount { get; set; }
+
+        public int Bet { get; set; }
+
+        public Player(int chipCount)
+        {
+            this.PlayerId = Guid.NewGuid();
+            this.ChipCount = chipCount;
+            this.Bet = 0;
+        }
     }
 }
