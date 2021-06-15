@@ -30,5 +30,9 @@ namespace PokerPlayer.Games
         bool DealHands();
 
         bool DealCommunityCards();
+
+        bool RunGame();
+
+        bool OpenBetting(Deal dealInfo);
     }
 }

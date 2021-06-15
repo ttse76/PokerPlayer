@@ -9,6 +9,8 @@ namespace PokerPlayer.Games.GameTypes
     {
         public int NumCardsInHand { get; set; }
 
+        private int Increment { get; set; }
+
         public List<Deal> DealIncrements { get; set; }
 
         public Deck CardDeck { get; set; }
@@ -30,6 +32,7 @@ namespace PokerPlayer.Games.GameTypes
             this.CardDeck = new Deck();
             this.CommunityCards = new List<Card>();
             this.Players = players;
+            this.Increment = 0;
         }
 
         public int GetNumberOfDeals()
@@ -73,6 +76,81 @@ namespace PokerPlayer.Games.GameTypes
                 }
             }
 
+            return true;
+        }
+
+        public bool RunGame()
+        {
+            if(this.CommunityCards.Count == 0)
+            {
+                return false;
+            }
+            Console.WriteLine("Opening Betting...\n");
+            if(!this.OpenBetting(this.DealIncrements[this.Increment]))
+            {
+                Console.WriteLine("Error with betting");
+                return false;
+            }
+            Console.WriteLine("Closing Betting...\n");
+
+            Console.WriteLine("Dealing Flop...\n");
+            for(int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(this.CommunityCards[i]);
+            }
+
+            Console.WriteLine("\nOpening Betting...\n");
+            if (!this.OpenBetting(this.DealIncrements[this.Increment]))
+            {
+                Console.WriteLine("Error with betting");
+                return false;
+            }
+            Console.WriteLine("Closing Betting...\n");
+
+            Console.WriteLine("Dealing Turn...\n");
+            Console.WriteLine(this.CommunityCards[3] + "\n");
+
+            Console.WriteLine("Opening Betting...\n");
+            if (!this.OpenBetting(this.DealIncrements[this.Increment]))
+            {
+                Console.WriteLine("Error with betting");
+                return false;
+            }
+            Console.WriteLine("Closing Betting...\n");
+
+            Console.WriteLine("Dealing River...\n");
+            Console.WriteLine(this.CommunityCards[4] + "\n");
+
+            Console.WriteLine("Opening Betting...\n");
+            if (!this.OpenBetting(this.DealIncrements[this.Increment]))
+            {
+                Console.WriteLine("Error with betting");
+                return false;
+            }
+            Console.WriteLine("Closing Betting...\n");
+
+            foreach(Player player in this.Players)
+            {
+                Console.WriteLine($"Cards for player {player.PlayerId}");
+                foreach(Card card in player.Hand)
+                {
+                    Console.WriteLine(card);
+                }
+                Console.WriteLine();
+            }
+            return true;
+        }
+
+        public bool OpenBetting(Deal dealInfo)
+        {
+            foreach(Player player in this.Players)
+            {
+                if(true)
+                {
+                    player.MakeBet(dealInfo.StartBet);
+                    Console.WriteLine($"{player.PlayerId} make a bet of {dealInfo.StartBet} chips with a total bet of {player.Bet}");
+                }
+            }
             return true;
         }
     }
