@@ -36,6 +36,15 @@ namespace PokerPlayer.Table
             }
 
             this.Game.DealHands();
+            this.Game.DealCommunityCards();
+            if(this.Game.RunGame())
+            {
+                this.Players = this.Game.Players;
+            }
+            else
+            {
+                Console.WriteLine("There was an error with running the game");
+            }
         }
     }
 }
