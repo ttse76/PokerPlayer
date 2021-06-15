@@ -57,7 +57,17 @@ namespace PokerPlayer.Services
                 };
             }
 
-            if(HandTypeChecker.IsTwoPair(playerHand, communityCards))
+            if (HandTypeChecker.IsThreeOfAKind(playerHand, communityCards))
+            {
+                return new HandType()
+                {
+                    HandName = "Three of a Kind",
+                    HandCards = playerHand,
+                    HandRank = 2
+                };
+            }
+
+            if (HandTypeChecker.IsTwoPair(playerHand, communityCards))
             {
                 return new HandType()
                 {

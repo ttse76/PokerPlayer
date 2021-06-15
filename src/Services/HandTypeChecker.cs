@@ -109,6 +109,20 @@ namespace PokerPlayer.Services
             return false;
         }
 
+        public static bool IsThreeOfAKind(List<Card> playerCards, List<Card> communityCards)
+        {
+            var allCards = CombineHands(playerCards, communityCards);
+            
+            for(int i = 0; i < allCards.Count - 2; i++)
+            {
+                if (allCards[i].Rank == allCards[i + 1].Rank && allCards[i].Rank == allCards[i + 2].Rank)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static bool IsTwoPair(List<Card> playerCards, List<Card> communityCards)
         {
             var allCards = CombineHands(playerCards, communityCards);
