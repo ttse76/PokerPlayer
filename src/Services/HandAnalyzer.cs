@@ -57,6 +57,16 @@ namespace PokerPlayer.Services
                 };
             }
 
+            if(HandTypeChecker.IsTwoPair(playerHand, communityCards))
+            {
+                return new HandType()
+                {
+                    HandName = "Two Pair",
+                    HandCards = playerHand,
+                    HandRank = 2
+                };
+            }
+
             if (HandTypeChecker.IsPair(playerHand, communityCards))
             {
                 return new HandType()

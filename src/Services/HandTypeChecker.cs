@@ -11,7 +11,7 @@ namespace PokerPlayer.Services
             var allCards = playerCards.Concat(communityCards).ToList();
             allCards.Sort(delegate (Card a, Card b)
             {
-                return a.CompareTo(b) * -1;
+                return a.Rank.CompareTo(b.Rank) * -1;
             });
 
             return allCards;
@@ -105,6 +105,27 @@ namespace PokerPlayer.Services
             if (consecutive == 5)
             {
                 return true;
+            }
+            return false;
+        }
+
+        public static bool IsTwoPair(List<Card> playerCards, List<Card> communityCards)
+        {
+            var allCards = CombineHands(playerCards, communityCards);
+
+            int numPairs = 0;
+
+            for(int i = 1; i < allCards.Count; i++)
+            {
+                if(allCards[i-1].Rank == allCards[i].Rank)
+                {
+                    numPairs++;
+                }
+
+                if(numPairs == 2)
+                {
+                    return true;
+                }
             }
             return false;
         }
