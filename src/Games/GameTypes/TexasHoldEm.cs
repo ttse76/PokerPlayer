@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PokerPlayer.Games
+namespace PokerPlayer.Games.GameTypes
 {
     public class TexasHoldEm : IGame
     {
@@ -17,6 +17,11 @@ namespace PokerPlayer.Games
                 1,
                 1
             };
+        }
+
+        public int GetNumberOfDeals()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
