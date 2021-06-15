@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Game2.Engine;
+using PokerPlayer.Players;
+using System.Collections.Generic;
 
 namespace PokerPlayer.Games
 {
@@ -8,7 +10,26 @@ namespace PokerPlayer.Games
         int NumCardsInHand { get; set; }
 
         // List for how many times a dealer deals and how many cards each time
-        // Example: Texas Hold'em: [3, 1, 1]
-        List<int> DealIncrements { get; set; }
+        List<Deal> DealIncrements { get; set; }
+
+        Deck CardDeck { get; set; }
+
+        List<Player> Players { get; set; }
+
+        // GET methods
+        // Returns number of times there is a deal
+        int GetNumberOfDeals();
+
+        string GetGameName();
+
+        // Actions
+
+        // Dealer action
+        bool Deal();
+
+        // Deals out hands to players
+        bool DealHands();
+
+
     }
 }
