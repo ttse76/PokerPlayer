@@ -29,7 +29,7 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
-        public void WhenGameSetToHoldEm_PlayersAreDealtCorrectNumberOfCards()
+        public void WhenGameSetToHoldEm_PlayersAreDealtCorrectNumberOfCardsAndNumberOfCommunityCardsCorrect()
         {
             var numPlayers = 4;
             var chipCount = 500;
@@ -38,9 +38,13 @@ namespace PokerPlayer.Tests
 
             tableManager.Game = new TexasHoldEm(tableManager.Players);
 
-            var result = tableManager.Game.DealHands();
+            var dealtHands = tableManager.Game.DealHands();
+            var dealtCommunity = tableManager.Game.DealCommunityCards();
 
-            result.ShouldBeTrue();
+            dealtHands.ShouldBeTrue();
+            dealtCommunity.ShouldBeTrue();
+
+            tableManager.Game.CommunityCards.Count.ShouldBe(5);
 
             foreach(Player player in tableManager.Game.Players)
             {
