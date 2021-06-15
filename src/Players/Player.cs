@@ -12,6 +12,7 @@ namespace PokerPlayer.Players
             this.ChipCount = chipCount;
             this.IsHuman = isHuman;
             this.Hand = new List<Card>();
+            this.Bet = 0;
         }
 
         public Guid PlayerId { get; set; }
@@ -34,6 +35,11 @@ namespace PokerPlayer.Players
             this.Hand.Clear();
         }
 
+        public void ClearBet()
+        {
+            this.Bet = 0;
+        }
+
         public override string ToString()
         {
             if(this.Hand.Count == 0)
@@ -47,6 +53,19 @@ namespace PokerPlayer.Players
                 output += card + "\n";
             }
             return output;
+        }
+
+        public bool MakeBet(int betAmount)
+        {
+            if(betAmount > this.ChipCount)
+            {
+                return false;
+            }
+
+            this.Bet += betAmount;
+            this.ChipCount -= betAmount;
+
+            return true;
         }
     }
 }
