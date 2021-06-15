@@ -14,6 +14,8 @@ namespace PokerPlayer.Games
 
         Deck CardDeck { get; set; }
 
+        List<Card> CommunityCards { get; set; }
+
         List<Player> Players { get; set; }
 
         // GET methods
@@ -24,12 +26,9 @@ namespace PokerPlayer.Games
 
         // Actions
 
-        // Dealer action
-        bool Deal();
-
         // Deals out hands to players
         bool DealHands();
 
-
+        bool DealCommunityCards();
     }
 }

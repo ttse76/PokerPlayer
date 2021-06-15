@@ -15,6 +15,8 @@ namespace PokerPlayer.Games.GameTypes
 
         public List<Player> Players { get; set; }
 
+        public List<Card> CommunityCards { get; set; }
+
         public TexasHoldEm(List<Player> players)
         {
             this.NumCardsInHand = 2;
@@ -26,21 +28,13 @@ namespace PokerPlayer.Games.GameTypes
             };
 
             this.CardDeck = new Deck();
+            this.CommunityCards = new List<Card>();
             this.Players = players;
         }
 
         public int GetNumberOfDeals()
         {
             return this.DealIncrements.Count;
-        }
-
-        public bool Deal()
-        {
-            if(this.Players == null)
-            {
-                return false;
-            }
-            return true;
         }
 
         public string GetGameName()
@@ -61,6 +55,24 @@ namespace PokerPlayer.Games.GameTypes
                     player.AddToHand(this.CardDeck.Draw());
                 }
             }
+            return true;
+        }
+
+        public bool DealCommunityCards()
+        {
+            if(this.CommunityCards == null || this.CommunityCards.Count != 0)
+            {
+                return false;
+            }
+
+            foreach(Deal deal in this.DealIncrements)
+            {
+                for(int i = 0; i < deal.NumCards; i++)
+                {
+                    this.CommunityCards.Add(this.CardDeck.Draw());
+                }
+            }
+
             return true;
         }
     }
