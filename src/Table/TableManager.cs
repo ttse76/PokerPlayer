@@ -40,10 +40,20 @@ namespace PokerPlayer.Table
             if(this.Game.RunGame())
             {
                 this.Players = this.Game.Players;
+                ClearHands();
+                
             }
             else
             {
                 Console.WriteLine("There was an error with running the game");
+            }
+        }
+
+        private void ClearHands()
+        {
+            for(int i = 0; i < this.Players.Count; i++)
+            {
+                this.Players[i].ClearHand();
             }
         }
     }

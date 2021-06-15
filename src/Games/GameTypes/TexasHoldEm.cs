@@ -1,5 +1,6 @@
 ﻿using Game2.Engine;
 using PokerPlayer.Players;
+using PokerPlayer.Services;
 using System;
 using System.Collections.Generic;
 
@@ -131,15 +132,32 @@ namespace PokerPlayer.Games.GameTypes
             }
             Console.WriteLine("\nClosing Betting...\n");
 
+            Console.WriteLine("\nCommunity Cards:");
+            foreach(Card card in this.CommunityCards)
+            {
+                Console.WriteLine(card);
+            }
+            Console.WriteLine();
             foreach(Player player in this.Players)
             {
                 Console.WriteLine($"Cards for player {player.PlayerId}");
+                player.Hand.Sort(delegate (Card a, Card b)
+                {
+                    return a.Rank.CompareTo(b.Rank) * -1;
+                });
                 foreach(Card card in player.Hand)
                 {
                     Console.WriteLine(card);
                 }
                 Console.WriteLine();
             }
+
+            foreach(Player p in this.Players)
+            {
+                var handType = HandAnalyzer.GetHandType(p.Hand, this.CommunityCards);
+                Console.WriteLine($"Player {p.PlayerId} has {handType.HandName}");
+            }
+
             return true;
         }
 
