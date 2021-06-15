@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game2.Engine;
+using PokerPlayer.Games;
 using PokerPlayer.Players;
 
 namespace PokerPlayer.Table
@@ -9,6 +11,8 @@ namespace PokerPlayer.Table
         public List<Player> Players { get; set; }
 
         private Deck CardDeck { get; set; }
+
+        public IGame Game { get; set; }
 
         public TableManager(int numPlayers, int chipCount)
         {
@@ -23,20 +27,15 @@ namespace PokerPlayer.Table
             this.CardDeck = new Deck();
         }
 
-        public void ShuffleDeck()
+        public void Play()
         {
-            this.CardDeck = new Deck();
-        }
-
-        public void Deal(int numCards)
-        {
-            for (int i = 0; i < numCards; i++)
+            if(this.Game == null)
             {
-                foreach (Player player in this.Players)
-                {
-                    player.AddToHand(this.CardDeck.Draw());
-                }
+                Console.WriteLine("[ERROR] TableManager has no game set");
+                return;
             }
+
+            this.Game.DealHands();
         }
     }
 }
