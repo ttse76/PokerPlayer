@@ -91,7 +91,7 @@ namespace PokerPlayer.Games.GameTypes
                 Console.WriteLine("Error with betting");
                 return false;
             }
-            Console.WriteLine("Closing Betting...\n");
+            Console.WriteLine("\nClosing Betting...\n");
 
             Console.WriteLine("Dealing Flop...\n");
             for(int i = 0; i < 3; i++)
@@ -105,7 +105,8 @@ namespace PokerPlayer.Games.GameTypes
                 Console.WriteLine("Error with betting");
                 return false;
             }
-            Console.WriteLine("Closing Betting...\n");
+            Console.WriteLine("\nClosing Betting...\n");
+            this.Increment++;
 
             Console.WriteLine("Dealing Turn...\n");
             Console.WriteLine(this.CommunityCards[3] + "\n");
@@ -116,7 +117,8 @@ namespace PokerPlayer.Games.GameTypes
                 Console.WriteLine("Error with betting");
                 return false;
             }
-            Console.WriteLine("Closing Betting...\n");
+            Console.WriteLine("\nClosing Betting...\n");
+            this.Increment++;
 
             Console.WriteLine("Dealing River...\n");
             Console.WriteLine(this.CommunityCards[4] + "\n");
@@ -127,7 +129,7 @@ namespace PokerPlayer.Games.GameTypes
                 Console.WriteLine("Error with betting");
                 return false;
             }
-            Console.WriteLine("Closing Betting...\n");
+            Console.WriteLine("\nClosing Betting...\n");
 
             foreach(Player player in this.Players)
             {
