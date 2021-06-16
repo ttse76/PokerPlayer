@@ -37,6 +37,16 @@ namespace PokerPlayer.Services
                 };
             }
 
+            if(HandTypeChecker.IsStraightFlush(playerHand, communityCards))
+            {
+                return new HandType()
+                {
+                    HandName = "Straight Flush",
+                    HandCards = playerHand,
+                    HandRank = 1
+                };
+            }
+
             if(HandTypeChecker.IsFlush(playerHand, communityCards))
             {
                 return new HandType()

@@ -11,10 +11,50 @@ namespace PokerPlayer.Services
             var allCards = playerCards.Concat(communityCards).ToList();
             allCards.Sort(delegate (Card a, Card b)
             {
-                return a.Rank.CompareTo(b.Rank);
+                return a.Rank.CompareTo(b.Rank) * -1;
             });
 
             return allCards;
+        }
+
+        private static List<Card> FilterBySuit(List<Card> hand, Suit suit)
+        {
+            var newHand = new List<Card>();
+
+            foreach(Card card in hand)
+            {
+                if(card.Suit == suit)
+                {
+                    newHand.Add(card);
+                }
+            }
+
+            newHand.Sort(delegate (Card a, Card b)
+            {
+                return a.Rank.CompareTo(b.Rank) * -1;
+            });
+
+            return newHand;
+        }
+
+        private static List<Card> FilterByRank(List<Card> hand, Rank rank)
+        {
+            var newHand = new List<Card>();
+
+            foreach (Card card in hand)
+            {
+                if (card.Rank == rank)
+                {
+                    newHand.Add(card);
+                }
+            }
+
+            newHand.Sort(delegate (Card a, Card b)
+            {
+                return a.Rank.CompareTo(b.Rank) * -1;
+            });
+
+            return newHand;
         }
 
         public static bool IsRoyalFlush(List<Card> playerCards, List<Card> communityCards)
@@ -23,7 +63,7 @@ namespace PokerPlayer.Services
 
             for(int i = 0; i < allCards.Count; i++)
             {
-                if(allCards[i].Rank == Rank.Ten)
+                if(allCards[i].Rank == Rank.Ace)
                 {
                     var neededSuit = allCards[i].Suit;
                     var subHand = new List<Card>()
@@ -32,22 +72,22 @@ namespace PokerPlayer.Services
                     };
                     for(int j = i; j < allCards.Count; j++)
                     {
-                        if(allCards[j].Suit == neededSuit && (allCards[j].Rank == Rank.Jack || allCards[j].Rank == Rank.Queen || allCards[j].Rank == Rank.King || allCards[j].Rank == Rank.Ace))
+                        if(allCards[j].Suit == neededSuit && (allCards[j].Rank == Rank.Jack || allCards[j].Rank == Rank.Queen || allCards[j].Rank == Rank.King || allCards[j].Rank == Rank.Ten))
                         {
                             subHand.Add(allCards[j]);
                         }
                     }
                     if(subHand.Count == 5)
                     {
-                        if(subHand[0].Rank == Rank.Ten)
+                        if(subHand[4].Rank == Rank.Ten)
                         {
-                            if (subHand[1].Rank == Rank.Jack)
+                            if (subHand[3].Rank == Rank.Jack)
                             {
                                 if (subHand[2].Rank == Rank.Queen)
                                 {
-                                    if (subHand[3].Rank == Rank.King)
+                                    if (subHand[1].Rank == Rank.King)
                                     {
-                                        if (subHand[4].Rank == Rank.Ace)
+                                        if (subHand[0].Rank == Rank.Ace)
                                         {
                                             return true;
                                         }
@@ -58,6 +98,45 @@ namespace PokerPlayer.Services
                     }
                 }
             }
+            return false;
+        }
+
+        public static bool IsStraightFlush(List<Card> playerCards, List<Card> communityCards)
+        {
+            var allCards = CombineHands(playerCards, communityCards);
+
+            for(int i = 0; i < allCards.Count; i++)
+            {
+                bool flag = false;
+
+                var selectedCard = allCards[i];
+
+                var filteredHand = FilterBySuit(allCards, selectedCard.Suit);
+
+                if(filteredHand.Count < 5)
+                {
+                    continue;
+                }
+
+                for(int j = 0; j < filteredHand.Count - 1; j++)
+                {
+                    if(filteredHand[j].Rank.Value - 1 != filteredHand[j + 1].Rank.Value)
+                    {
+                        break;
+                    }
+
+                    if(j == filteredHand.Count - 2)
+                    {
+                        flag = true;
+                    }
+                }
+
+                if(flag)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

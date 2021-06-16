@@ -37,6 +37,29 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
+        public void EvaluateStraightFlush()
+        {
+            List<Card> fakeHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Spades, Rank.Three)
+            };
+
+            List<Card> fakeCommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.King),
+                new Card(Suit.Spades, Rank.Six),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Spades, Rank.Four),
+                new Card(Suit.Spades, Rank.Seven)
+            };
+
+            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+
+            result.HandName.ShouldBe("Straight Flush");
+        }
+
+        [Fact]
         public void EvaluateOnePair()
         {
             List<Card> fakeHand = new List<Card>()
