@@ -60,6 +60,29 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
+        public void EvaluateFlush()
+        {
+            List<Card> fakeHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Seven),
+                new Card(Suit.Spades, Rank.Three)
+            };
+
+            List<Card> fakeCommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.King),
+                new Card(Suit.Spades, Rank.Ace),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.Ten)
+            };
+
+            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+
+            result.HandName.ShouldBe("Flush");
+        }
+
+        [Fact]
         public void EvaluateOnePair()
         {
             List<Card> fakeHand = new List<Card>()
