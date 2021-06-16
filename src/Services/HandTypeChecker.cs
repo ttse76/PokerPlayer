@@ -11,7 +11,7 @@ namespace PokerPlayer.Services
             var allCards = playerCards.Concat(communityCards).ToList();
             allCards.Sort(delegate (Card a, Card b)
             {
-                return a.Rank.CompareTo(b.Rank) * -1;
+                return a.Rank.CompareTo(b.Rank);
             });
 
             return allCards;
@@ -21,37 +21,39 @@ namespace PokerPlayer.Services
         {
             var allCards = CombineHands(playerCards, communityCards);
 
-            int tenAt = 0;
-            bool has10 = false;
-
             for(int i = 0; i < allCards.Count; i++)
             {
-                if(allCards[i].Rank.Value == 10)
+                if(allCards[i].Rank == Rank.Ten)
                 {
-                    if(allCards.Count - i < 5)
+                    var neededSuit = allCards[i].Suit;
+                    var subHand = new List<Card>()
                     {
-                        return false;
-                    }
-                    tenAt = i;
-                    has10 = true;
-                    break;
-                }
-            }
-
-            if(!has10)
-            {
-                return false;
-            }
-
-            if(allCards[tenAt + 1].Rank == Rank.Jack && allCards[tenAt + 1].Suit == allCards[tenAt].Suit)
-            {
-                if (allCards[tenAt + 2].Rank == Rank.Queen && allCards[tenAt + 2].Suit == allCards[tenAt].Suit)
-                {
-                    if (allCards[tenAt + 3].Rank == Rank.King && allCards[tenAt + 3].Suit == allCards[tenAt].Suit)
+                        allCards[i]
+                    };
+                    for(int j = i; j < allCards.Count; j++)
                     {
-                        if (allCards[tenAt + 4].Rank == Rank.Ace && allCards[tenAt + 4].Suit == allCards[tenAt].Suit)
+                        if(allCards[j].Suit == neededSuit && (allCards[j].Rank == Rank.Jack || allCards[j].Rank == Rank.Queen || allCards[j].Rank == Rank.King || allCards[j].Rank == Rank.Ace))
                         {
-                            return true;
+                            subHand.Add(allCards[j]);
+                        }
+                    }
+                    if(subHand.Count == 5)
+                    {
+                        if(subHand[0].Rank == Rank.Ten)
+                        {
+                            if (subHand[1].Rank == Rank.Jack)
+                            {
+                                if (subHand[2].Rank == Rank.Queen)
+                                {
+                                    if (subHand[3].Rank == Rank.King)
+                                    {
+                                        if (subHand[4].Rank == Rank.Ace)
+                                        {
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
