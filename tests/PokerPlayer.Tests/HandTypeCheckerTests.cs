@@ -14,7 +14,7 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
-        public void EvaluateRoyalFlush()
+        public void EvaluateIfRoyalFlush()
         {
             List<Card> fakeHand = new List<Card>()
             {
@@ -37,7 +37,7 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
-        public void EvaluateStraightFlush()
+        public void EvaluateIfStraightFlush()
         {
             List<Card> fakeHand = new List<Card>()
             {
@@ -60,7 +60,7 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
-        public void EvaluateFlush()
+        public void EvaluateIfFlush()
         {
             List<Card> fakeHand = new List<Card>()
             {
@@ -83,7 +83,30 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
-        public void EvaluateOnePair()
+        public void EvaluateIfStraight()
+        {
+            List<Card> fakeHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Ten)
+            };
+
+            List<Card> fakeCommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.Eight),
+                new Card(Suit.Spades, Rank.Ace),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Diamonds, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Ten)
+            };
+
+            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+
+            result.HandName.ShouldBe("Straight");
+        }
+
+        [Fact]
+        public void EvaluateIfOnePair()
         {
             List<Card> fakeHand = new List<Card>()
             {
