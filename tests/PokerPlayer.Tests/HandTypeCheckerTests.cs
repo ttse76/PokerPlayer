@@ -129,6 +129,29 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
+        public void EvaluateTwoPair()
+        {
+            List<Card> fakeHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Ten)
+            };
+
+            List<Card> fakeCommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.Jack),
+                new Card(Suit.Spades, Rank.Ace),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Diamonds, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Ten)
+            };
+
+            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+
+            result.HandName.ShouldBe("Two Pair");
+        }
+
+        [Fact]
         public void EvaluateIfOnePair()
         {
             List<Card> fakeHand = new List<Card>()
