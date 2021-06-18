@@ -57,6 +57,16 @@ namespace PokerPlayer.Services
                 };
             }
 
+            if(HandTypeChecker.IsFullHouse(playerHand, communityCards))
+            {
+                return new HandType()
+                {
+                    HandName = "Full House",
+                    HandCards = playerHand,
+                    HandRank = 1
+                };
+            }
+
             if(HandTypeChecker.IsFlush(playerHand, communityCards))
             {
                 return new HandType()
