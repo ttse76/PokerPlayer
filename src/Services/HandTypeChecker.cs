@@ -166,7 +166,7 @@ namespace PokerPlayer.Services
                     {
                         continue;
                     }
-                    if(selectedCard.Rank == allCards[i].Rank)
+                    if(selectedCard.Rank == allCards[j].Rank)
                     {
                         numConsecutive++;
                     }
