@@ -129,6 +129,29 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
+        public void EvaluateIfThreeOfAKind()
+        {
+            List<Card> fakeHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Ten)
+            };
+
+            List<Card> fakeCommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.Ten),
+                new Card(Suit.Spades, Rank.Ace),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Diamonds, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Ten)
+            };
+
+            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+
+            result.HandName.ShouldBe("Three of a Kind");
+        }
+
+        [Fact]
         public void EvaluateTwoPair()
         {
             List<Card> fakeHand = new List<Card>()
