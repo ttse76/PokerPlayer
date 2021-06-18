@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Game2.Engine;
 using PokerPlayer.Services;
-using PokerPlayer.Table;
 using Shouldly;
 using Xunit;
 
