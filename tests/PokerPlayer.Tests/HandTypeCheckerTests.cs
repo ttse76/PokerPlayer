@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Game2.Engine;
 using PokerPlayer.Services;
+using PokerPlayer.Tests.Fakes;
 using Shouldly;
 using Xunit;
 
@@ -15,22 +16,9 @@ namespace PokerPlayer.Tests
         [Fact]
         public void EvaluateIfRoyalFlush()
         {
-            List<Card> fakeHand = new List<Card>()
-            {
-                new Card(Suit.Spades, Rank.Ten),
-                new Card(Suit.Spades, Rank.King)
-            };
+            var fakeHands = FakeHands.RoyalFlush;
 
-            List<Card> fakeCommunityCards = new List<Card>()
-            {
-                new Card(Suit.Diamonds, Rank.King),
-                new Card(Suit.Spades, Rank.Queen),
-                new Card(Suit.Hearts, Rank.Nine),
-                new Card(Suit.Spades, Rank.Jack),
-                new Card(Suit.Spades, Rank.Ace)
-            };
-
-            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+            var result = HandAnalyzer.GetHandType(fakeHands.PlayerHand, fakeHands.CommunityCards);
 
             result.HandName.ShouldBe("Royal Flush");
         }
@@ -174,7 +162,7 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
-        public void EvaluateTwoPair()
+        public void EvaluateIfTwoPair()
         {
             List<Card> fakeHand = new List<Card>()
             {
