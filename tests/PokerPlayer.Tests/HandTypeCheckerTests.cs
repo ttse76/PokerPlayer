@@ -36,22 +36,9 @@ namespace PokerPlayer.Tests
         [Fact]
         public void EvaluateIfFourOfAKind()
         {
-            List<Card> fakeHand = new List<Card>()
-            {
-                new Card(Suit.Spades, Rank.Nine),
-                new Card(Suit.Clubs, Rank.Nine)
-            };
+            var fakeHands = FakeHands.FourOfAKind;
 
-            List<Card> fakeCommunityCards = new List<Card>()
-            {
-                new Card(Suit.Diamonds, Rank.Nine),
-                new Card(Suit.Spades, Rank.Six),
-                new Card(Suit.Hearts, Rank.Nine),
-                new Card(Suit.Spades, Rank.Four),
-                new Card(Suit.Spades, Rank.Seven)
-            };
-
-            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+            var result = HandAnalyzer.GetHandType(fakeHands.PlayerHand, fakeHands.CommunityCards);
 
             result.HandName.ShouldBe("Four Of A Kind");
         }

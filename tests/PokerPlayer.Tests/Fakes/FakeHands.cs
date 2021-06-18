@@ -49,6 +49,23 @@ namespace PokerPlayer.Tests.Fakes
                 new Card(Suit.Spades, Rank.Seven)
             }
         };
+
+        public static FakeHand FourOfAKind = new FakeHand()
+        {
+            PlayerHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Nine)
+            },
+            CommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.Nine),
+                new Card(Suit.Spades, Rank.Six),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Spades, Rank.Four),
+                new Card(Suit.Spades, Rank.Seven)
+            }
+        };
     }
 }
 
