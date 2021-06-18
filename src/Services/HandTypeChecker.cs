@@ -151,6 +151,34 @@ namespace PokerPlayer.Services
             return false;
         }
 
+        public static bool IsFourOfAKind(List<Card> playerCards, List<Card> communityCards)
+        {
+            var allCards = CombineHands(playerCards, communityCards);
+
+            for(int i = 0; i < allCards.Count; i++)
+            {
+                var selectedCard = allCards[i];
+                var numConsecutive = 1;
+
+                for(int j = 0; j < allCards.Count; j++)
+                {
+                    if(j == i)
+                    {
+                        continue;
+                    }
+                    if(selectedCard.Rank == allCards[j].Rank)
+                    {
+                        numConsecutive++;
+                    }
+                }
+                if(numConsecutive == 4)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static bool IsFlush(List<Card> playerCards, List<Card> communityCards)
         {
             var allCards = CombineHands(playerCards, communityCards);
