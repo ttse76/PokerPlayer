@@ -166,6 +166,36 @@ namespace PokerPlayer.Services
             return false;
         }
 
+        public static bool IsFullHouse(List<Card> playerCards, List<Card> communityCards)
+        {
+            var allCards = CombineHands(playerCards, communityCards);
+
+            foreach(Card card3 in allCards)
+            {
+                var filteredHand3 = FilterByRank(allCards, card3.Rank);
+
+                if(filteredHand3.Count == 3)
+                {
+                    foreach(Card card2 in allCards)
+                    {
+                        if(card2.Rank == card3.Rank)
+                        {
+                            continue;
+                        }
+
+                        var filteredHand2 = FilterByRank(allCards, card2.Rank);
+
+                        if(filteredHand2.Count == 2)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public static bool IsFlush(List<Card> playerCards, List<Card> communityCards)
         {
             var allCards = CombineHands(playerCards, communityCards);
