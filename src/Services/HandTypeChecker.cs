@@ -57,6 +57,17 @@ namespace PokerPlayer.Services
             return newHand;
         }
 
+        private static List<Rank> FilterUnique(List<Card> hand)
+        {
+            var cardSet = new HashSet<Rank>();
+
+            foreach(Card card in hand)
+            {
+                cardSet.Add(card.Rank);
+            }
+            return cardSet.ToList<Rank>();
+        }
+
         public static bool IsRoyalFlush(List<Card> playerCards, List<Card> communityCards)
         {
             var allCards = CombineHands(playerCards, communityCards);
@@ -166,27 +177,32 @@ namespace PokerPlayer.Services
         public static bool IsStraight(List<Card> playerCards, List<Card> communityCards)
         {
             var allCards = CombineHands(playerCards, communityCards);
-            int consecutive = 1;
 
-            for(int i = 1; i < allCards.Count; i++)
+            var filteredHand = FilterUnique(allCards);
+
+            if(filteredHand.Count < 5)
             {
-                if(consecutive == 5)
+                return false;
+            }
+
+            int numConsecutive = 1;
+
+            for(int i = 1; i < filteredHand.Count; i++)
+            {
+                if(filteredHand[i].Value == filteredHand[i - 1].Value - 1)
                 {
-                    return true;
-                }
-                if(allCards[i-1].Rank.Value == allCards[i].Rank.Value - 1)
-                {
-                    consecutive++;
+                    numConsecutive++;
                 }
                 else
                 {
-                    consecutive = 1;
+                    numConsecutive = 1;
+                }
+                if(numConsecutive == 5)
+                {
+                    return true;
                 }
             }
-            if (consecutive == 5)
-            {
-                return true;
-            }
+
             return false;
         }
 
