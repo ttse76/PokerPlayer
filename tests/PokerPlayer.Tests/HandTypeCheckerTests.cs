@@ -82,6 +82,29 @@ namespace PokerPlayer.Tests
         }
 
         [Fact]
+        public void EvaluateFullHouse()
+        {
+            List<Card> fakeHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Nine)
+            };
+
+            List<Card> fakeCommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.Nine),
+                new Card(Suit.Spades, Rank.Six),
+                new Card(Suit.Hearts, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Six),
+                new Card(Suit.Spades, Rank.Seven)
+            };
+
+            var result = HandAnalyzer.GetHandType(fakeHand, fakeCommunityCards);
+
+            result.HandName.ShouldBe("Full House");
+        }
+
+        [Fact]
         public void EvaluateIfFlush()
         {
             List<Card> fakeHand = new List<Card>()
