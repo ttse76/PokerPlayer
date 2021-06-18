@@ -155,23 +155,10 @@ namespace PokerPlayer.Services
         {
             var allCards = CombineHands(playerCards, communityCards);
 
-            for(int i = 0; i < allCards.Count; i++)
+            foreach(Card card in allCards)
             {
-                var selectedCard = allCards[i];
-                var numConsecutive = 1;
-
-                for(int j = 0; j < allCards.Count; j++)
-                {
-                    if(j == i)
-                    {
-                        continue;
-                    }
-                    if(selectedCard.Rank == allCards[j].Rank)
-                    {
-                        numConsecutive++;
-                    }
-                }
-                if(numConsecutive == 4)
+                var filteredHand = FilterByRank(allCards, card.Rank);
+                if(filteredHand.Count == 4)
                 {
                     return true;
                 }
@@ -238,9 +225,9 @@ namespace PokerPlayer.Services
         {
             var allCards = CombineHands(playerCards, communityCards);
             
-            for(int i = 0; i < allCards.Count - 2; i++)
+            foreach(Card card in allCards)
             {
-                var filteredHand = FilterByRank(allCards, allCards[i].Rank);
+                var filteredHand = FilterByRank(allCards, card.Rank);
 
                 if(filteredHand.Count == 3)
                 {
