@@ -32,6 +32,23 @@ namespace PokerPlayer.Tests.Fakes
                 new Card(Suit.Spades, Rank.Ace)
             }
         };
+
+        public static FakeHand StraightFlush = new FakeHand()
+        {
+            PlayerHand = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Spades, Rank.Three)
+            },
+            CommunityCards = new List<Card>()
+            {
+                new Card(Suit.Diamonds, Rank.King),
+                new Card(Suit.Spades, Rank.Six),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Spades, Rank.Four),
+                new Card(Suit.Spades, Rank.Seven)
+            }
+        };
     }
 }
 
