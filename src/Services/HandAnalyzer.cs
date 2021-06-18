@@ -47,6 +47,16 @@ namespace PokerPlayer.Services
                 };
             }
 
+            if(HandTypeChecker.IsFourOfAKind(playerHand, communityCards))
+            {
+                return new HandType()
+                {
+                    HandName = "Four Of A Kind",
+                    HandCards = playerHand,
+                    HandRank = 1
+                };
+            }
+
             if(HandTypeChecker.IsFlush(playerHand, communityCards))
             {
                 return new HandType()
