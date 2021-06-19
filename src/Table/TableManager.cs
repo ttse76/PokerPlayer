@@ -41,6 +41,7 @@ namespace PokerPlayer.Table
             {
                 this.Players = this.Game.Players;
                 ClearHands();
+                this.Game = null;
                 
             }
             else
