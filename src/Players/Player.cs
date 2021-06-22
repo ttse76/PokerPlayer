@@ -23,6 +23,8 @@ namespace PokerPlayer.Players
 
         public bool IsHuman { get; set; }
 
+        public Brain PlayerBrain { get; set; }
+
         public List<Card> Hand { get; set; }
 
         public void AddToHand(Card card)
