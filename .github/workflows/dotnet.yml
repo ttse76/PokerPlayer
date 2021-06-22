@@ -30,7 +30,7 @@ jobs:
     - name: set pr build number (if pr)
       id: PRNUMBER
       if: ${{ github.event_name == 'pull_request'}}
-        uses: kkak10/pr-number-action@v1.3
+      uses: kkak10/pr-number-action@v1.3
 
     # configure report
     - name: Configure Test Report
