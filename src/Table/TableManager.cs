@@ -10,8 +10,6 @@ namespace PokerPlayer.Table
     {
         public List<Player> Players { get; set; }
 
-        private Deck CardDeck { get; set; }
-
         public IGame Game { get; set; }
 
         public TableManager(int numPlayers, int chipCount)
@@ -24,7 +22,6 @@ namespace PokerPlayer.Table
             }
 
             this.Players.Add(new Player(chipCount, true));
-            this.CardDeck = new Deck();
         }
 
         public void Play()
