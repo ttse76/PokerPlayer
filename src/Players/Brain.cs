@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Game2.Engine;
 using PokerPlayer.RiskConfigs;
 
 namespace PokerPlayer.Players
@@ -19,7 +21,7 @@ namespace PokerPlayer.Players
          * Determine if the player should bet, check, or fold
          * 
          */
-        public string GetAction()
+        public string GetAction(List<Card> dealtCards)
         {
             return "check";
         }

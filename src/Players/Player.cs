@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game2.Engine;
+using PokerPlayer.RiskConfigs.Configs;
 
 namespace PokerPlayer.Players
 {
     public class Player
     {
-        public Player(int chipCount, bool isHuman)
+        public Player(int chipCount, bool isHuman, string difficulty = "easy")
         {
             this.PlayerId = Guid.NewGuid();
             this.ChipCount = chipCount;
             this.IsHuman = isHuman;
             this.Hand = new List<Card>();
             this.Bet = 0;
+
+            switch(difficulty)
+            {
+                case "easy":
+                    this.PlayerBrain = new Brain(this.PlayerId, new EasyConfig(this.PlayerId));
+                    break;
+            }
         }
 
         public Guid PlayerId { get; set; }
