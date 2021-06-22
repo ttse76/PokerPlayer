@@ -34,6 +34,7 @@ namespace PokerPlayer.Games.GameTypes
 
             this.CardDeck = new Deck();
             this.CommunityCards = new List<Card>();
+            this.DealtCards = new List<Card>();
             this.Players = players;
             this.Increment = 0;
         }
@@ -96,6 +97,7 @@ namespace PokerPlayer.Games.GameTypes
             for(int i = 0; i < 3; i++)
             {
                 Console.WriteLine(this.CommunityCards[i]);
+                this.DealtCards.Add(this.CommunityCards[i]);
             }
 
             Console.WriteLine("\nOpening Betting...\n");
@@ -109,6 +111,7 @@ namespace PokerPlayer.Games.GameTypes
 
             Console.WriteLine("Dealing Turn...\n");
             Console.WriteLine(this.CommunityCards[3] + "\n");
+            this.DealtCards.Add(this.CommunityCards[3]);
 
             Console.WriteLine("Opening Betting...\n");
             if (!this.OpenBetting(this.DealIncrements[this.Increment]))
@@ -121,6 +124,7 @@ namespace PokerPlayer.Games.GameTypes
 
             Console.WriteLine("Dealing River...\n");
             Console.WriteLine(this.CommunityCards[4] + "\n");
+            this.DealtCards.Add(this.CommunityCards[4]);
 
             Console.WriteLine("Opening Betting...\n");
             if (!this.OpenBetting(this.DealIncrements[this.Increment]))
@@ -163,10 +167,22 @@ namespace PokerPlayer.Games.GameTypes
         {
             foreach(Player player in this.Players)
             {
-                if(true)
+                var action = player.PlayerBrain.GetAction(this.DealtCards);
+                
+                switch(action)
                 {
-                    player.MakeBet(dealInfo.StartBet);
-                    Console.WriteLine($"{player.PlayerId} make a bet of {dealInfo.StartBet} chips with a total bet of {player.Bet}");
+                    case "check":
+                        Console.WriteLine($"{player.PlayerId} checks");
+                        break;
+                    case "bet":
+                        player.MakeBet(dealInfo.StartBet);
+                        Console.WriteLine($"{player.PlayerId} make a bet of {dealInfo.StartBet} chips with a total bet of {player.Bet}");
+                        break;
+                    case "fold":
+                        Console.WriteLine($"{player.PlayerId} folds");
+                        break;
+                    default:
+                        return false;
                 }
             }
             return true;
