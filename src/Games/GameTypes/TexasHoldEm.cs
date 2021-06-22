@@ -20,6 +20,8 @@ namespace PokerPlayer.Games.GameTypes
 
         public List<Card> CommunityCards { get; set; }
 
+        public List<Card> DealtCards { get; set; }
+
         public TexasHoldEm(List<Player> players)
         {
             this.NumCardsInHand = 2;
@@ -82,10 +84,6 @@ namespace PokerPlayer.Games.GameTypes
 
         public bool RunGame()
         {
-            if(this.CommunityCards.Count == 0)
-            {
-                return false;
-            }
             Console.WriteLine("Opening Betting...\n");
             if(!this.OpenBetting(this.DealIncrements[this.Increment]))
             {
